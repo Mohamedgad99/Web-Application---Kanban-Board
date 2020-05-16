@@ -1,0 +1,6 @@
+{% extends "base.html" %} {% block content %}
+<div class="blog-post">
+    <h2 class="blog-post-title">{{ todo.title }}</h2>
+    <p class="blog-post-meta">Created: {{todo.date_posted.strftime('%Y-%m-%d')}}; Due: {{todo.deadline.strftime('%Y-%m-%d')}}</p>
+</div>
+{% endblock content %}

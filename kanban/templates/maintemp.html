@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block content %}
+<!-- This is the main page template where the users interact with their tasks and move them around -->
+<div class="container">
+    <div class="row row-eq-height">
+        <div class="col-md-3 boxstyles">
+            <h4>Tasks To Do</h4>
+<!-- The first section will be for the tasks to be done.
+In this section, users can move tasks to the following section with one press on the arrow button-->
+            {% for todo in todos %}
+                <div class="row todo">
+                    <a href="{{url_for('elements', todo_id=todo.id)}}">{{ todo.title }}</a>
+                    <div class="left-align">
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('do', todo_id=todo.id) }}"> >> </a>
+                    </div>
+                </div>
+
+            {% endfor %}
+
+        </div>
+        <div class="col-md-3 boxstyles">
+            <h4>Tasks In Progress</h4>
+            <!-- The second section will be for the tasks in progress, or being done at the moment.
+          In this section, users will have the option to move tasks either forward to tasks accomplished/done, or
+        unfortunately backwards to tasks to be done again-->
+            {% for do in dos %}
+                <div class="row todo">
+                    <a href="{{url_for('elements', todo_id=do.id)}}">{{ do.title }}</a>
+                    <div class="left-align">
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('todo', todo_id=do.id) }}"><<</a>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('done', todo_id=do.id) }}">>></a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="col-md-3 boxstyles">
+            <h4>Tasks Done</h4>
+            <!-- The final section is for the tasks that are accomplished, hence users will have the option to
+            delete the task or move it back to in progress section -->
+            {% for done in dones %}
+                <div class="row todo">
+                    <a href="{{url_for('elements', todo_id=done.id)}}">{{ done.title }}</a>
+                    <div class="left-align">
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{{ url_for('do', todo_id=done.id) }}"><<</a>
+                        <a class="btn btn-danger btn-sm mt-1 mb-1" href="{{ url_for('delete', todo_id=done.id) }}">Delete Task</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
